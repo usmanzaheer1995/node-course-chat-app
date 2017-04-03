@@ -25,12 +25,12 @@ io.on(`connection`, (socket) => {
         console.log('client disconnected');
     });
 
-    socket.on('newMessage', (newMessage) => {
+    socket.on('createMessage', (newMessage, callback) => {
         console.log('new message', newMessage);
 
         //io.emit() emits an event to all the connections, socket.emit() emits an event to one connection
         io.emit('newMessage', generateMessage(newMessage.from,newMessage.text));
-
+        callback('This is from the server');
         //broadcast sends message to everyone but the one sending it
         // socket.broadcast.emit('newMessage',{
         //     from:'usman',
