@@ -17,6 +17,9 @@ app.use(express.static(publicPath));
 io.on(`connection`, (socket) => {
     console.log('new user connected');
 
+    socket.emit('newMessage', {from: 'admin', text: 'Welcome to the chatroom',createdAt: new Date().getTime()});
+    socket.broadcast.emit('newMessage', {from:'admin',text:'new User has joined',createdAt: new Date().getTime()});
+
     socket.on('disconnect', () => {
         console.log('client disconnected');
     });
@@ -30,6 +33,13 @@ io.on(`connection`, (socket) => {
             text: newMessage.text,
             createdAt: new Date().getTime()
         });
+
+        //broadcast sends message to everyone but the one sending it
+        // socket.broadcast.emit('newMessage',{
+        //     from:'usman',
+        //     text: 'another message for everyone else',
+        //     createdAt: new Date().getTime()
+        // });
     });
 });
 
