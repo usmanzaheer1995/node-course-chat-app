@@ -34,4 +34,6 @@ $('#message-form').on('submit', function(e) {
     }, function() {
 
     });
+
+    $('[name=message]').val('');
 });
