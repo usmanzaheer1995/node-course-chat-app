@@ -17,28 +17,19 @@ app.use(express.static(publicPath));
 io.on(`connection`, (socket) => {
     console.log('new user connected');
 
-    // socket.emit('newEmail', {
-    //     from: "mike@example.com",
-    //     text: "Hi there",
-    //     createdAt: 123
-    // });
-
-    // socket.on('createEmail', (newEmail) => {
-    //     console.log('create email', newEmail);
-    // });
-
     socket.on('disconnect', () => {
         console.log('client disconnected');
     });
 
-    socket.on('createMessage', (newMessage) => {
+    socket.on('newMessage', (newMessage) => {
         console.log('new message', newMessage);
-    });
 
-    socket.emit('newMessage', {
-        from:'babuG@gmail.com',
-        text: 'raga jeeeee',
-        createdAt: 123
+        //io.emit() emits an event to all the connections, socket.emit() emits an event to one connection
+        io.emit('newMessage', {
+            from: newMessage.from,
+            text: newMessage.text,
+            createdAt: new Date().getTime()
+        });
     });
 });
 
