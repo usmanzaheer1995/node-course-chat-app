@@ -29,7 +29,7 @@ io.on(`connection`, (socket) => {
 
         //io.emit() emits an event to all the connections, socket.emit() emits an event to one connection
         io.emit('newMessage', generateMessage(newMessage.from,newMessage.text));
-        callback('This is from the server');
+        callback();
     });
 
     socket.on('createLocationMessage', (coords) => {
